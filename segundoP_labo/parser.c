@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "inc/LinkedList.h"
+#include "LinkedList.h"
 #include "Passenger.h"
 #include "Controller.h"
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "inc/LinkedList.h"
+#include "LinkedList.h"
 #include "Passenger.h"
 #include "parser.h"
 #include "bibliotecaESDeDatos.h"
@@ -17,13 +17,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger){
 	FILE* pFile = NULL;
 	int retorno = -1;
 
-	printf("antes del if");
+
 	if(path != NULL && pArrayListPassenger != NULL){
-		printf("post del if");
 		pFile = fopen(path, "r");
 		if(pFile != NULL && !parser_PassengerFromText(pFile, pArrayListPassenger)){
-			printf("antes del if");
-				retorno = 0;
+			retorno = 0;
 		}
 	}
 	fclose(pFile);

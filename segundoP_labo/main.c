@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "inc/LinkedList.h"
+#include "LinkedList.h"
 #include "Controller.h"
 #include "bibliotecaESDeDatos.h"
 
@@ -11,6 +11,8 @@ int main(){
     int flagArchivo = 0;
     int retorno;
     int respuesta = 0;
+
+
 
     LinkedList* listaPasajeros = ll_newLinkedList();
 

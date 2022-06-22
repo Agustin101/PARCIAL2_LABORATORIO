@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "inc/LinkedList.h"
+#include "LinkedList.h"
 #include "Controller.h"
 #include "bibliotecaESDeDatos.h"
 

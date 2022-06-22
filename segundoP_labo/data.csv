@@ -999,3 +999,5 @@ id,name,lastname,price,flycode,typePassenger,statusFlight
 998,Taddeo,Waker,844946.00,HZ9015Z,ExecutiveClass,Aterrizado
 999,Nerti,Sheircliffe,450887.00,FT6780R,ExecutiveClass,En vuelo
 1000,Fallon,Wem,376394.00,AQ4311K,FirstClass,Demorado
+1001,Agustin,Barberis,125000.00,asd456a,FirstClass,En vuelo
+1002,Sol,Carpinetti,130000.00,asd464a,FirstClass,En Horario
