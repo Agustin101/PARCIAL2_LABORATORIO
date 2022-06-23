@@ -52,7 +52,7 @@ int main(){
         	case 4:
         		retorno = controller_editPassenger(listaPasajeros);
         		if(retorno == 0){
-					printf("El pasajero fue modificado con exito.\n");
+					printf("Los datos de los pasajeros modificados se guardaron con exito.\n");
         		}
         		else if(retorno==-1){
         			printf("No se realizaron cambios.\n");

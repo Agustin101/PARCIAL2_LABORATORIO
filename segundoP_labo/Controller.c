@@ -122,72 +122,71 @@ int controller_editPassenger(LinkedList* pArrayListPassenger){
 	int indiceRetornado;
 
 	if(pArrayListPassenger != NULL && !ll_isEmpty(pArrayListPassenger)){
+		retorno = -1;
 		controller_ListPassenger(pArrayListPassenger);
 		if(!utn_getInt(&idAmodificar, "Ingrese el id del pasajero que desea modificar:\n", "Ingrese un numero en el rango.\n", 1, 10000, 2) && !findPassengerById(pArrayListPassenger, idAmodificar, &indiceRetornado)){
-				pPasajero = (Passenger*)ll_get(pArrayListPassenger, indiceRetornado);
-				if(pPasajero != NULL){
-					retorno = -1;
-						if(utn_getInt(&opcion, "Ingrese el campo que desea modificar:\n1)Nombre.\n2)Apellido.\n3)Precio.\n4)Codigo de vuelo.\n5)Tipo de pasajero\n6)Estado de vuelo.\n7)Volver al menu principal.", "Ingrese un numero en el rango.\n", 1, 7, 2)==0){
-							switch(opcion){
-							case 1:
-								if(!getString(nombreAux, "Ingrese el nuevo nombre del pasajero: \n", "Ingrese un nombre valido.\n", 2)){
-									if(!Passenger_setNombre(pPasajero, nombreAux)){
-										retorno = 0;
-									}
+			pPasajero = (Passenger*)ll_get(pArrayListPassenger, indiceRetornado);
+			if(pPasajero != NULL){
+				if(utn_getInt(&opcion, "Ingrese el campo que desea modificar:\n1)Nombre.\n2)Apellido.\n3)Precio.\n4)Codigo de vuelo.\n5)Tipo de pasajero\n6)Estado de vuelo.\n7)Volver al menu principal.", "Ingrese un numero en el rango.\n", 1, 7, 2)==0){
+					switch(opcion){
+						case 1:
+							if(!getString(nombreAux, "Ingrese el nuevo nombre del pasajero: \n", "Ingrese un nombre valido.\n", 2)){
+								if(!Passenger_setNombre(pPasajero, nombreAux)){
+									retorno = 0;
 								}
-
-								break;
-							case 2:
-								if(!getString(apellidoAux, "Ingrese el nuevo apellido del pasajero: \n", "Ingrese un apellido valido\n", 2)){
-									if(!Passenger_setApellido(pPasajero, apellidoAux)){
-										retorno = 0;
-									}
-								}
-								break;
-							case 3:
-								if(!utnGetFloat(&precioAux, "Ingrese el nuevo precio del viaje:\n", "Por favor ingrese un valor valido.\n", 0, 1000000, 2)){
-									if(!Passenger_setPrecio(pPasajero, precioAux)){
-										retorno = 0;
-									}
-								}
-								break;
-							case 4:
-								if(!utn_getFlyCode(codigoDeVueloAux, "Ingrese el nuevo codigo de vuelo: \n", "Ingrese un codigo alfanumerico.\n", 2)){
-									if(!Passenger_setCodigoVuelo(pPasajero, codigoDeVueloAux)){
-										retorno = 0;
-									}
-								}
-
-								break;
-							case 5:
-								if(!utn_getInt(&tipoPasajeroAux, "Ingrese el nuevo tipo de pasajero: \n1)First Class\n2)Executive class\n3)Economy Class\n", "Ingrese una opcion valida.\n", 1, 3, 2)){
-									if(!Passenger_setTipoPasajero(pPasajero, tipoPasajeroAux)){
-										retorno = 0;
-									}
-								}
-								break;
-							case 6:
-								if(!getFlightStatus(estadoDeVueloAux, "Ingrese el estado del vuelo 'En vuelo' 'En Horario' 'Aterrizado' 'Demorado':\n", "Error, debe ser una cadena de caracteres valida respetando minusculas y mayusculas.\n", 2)){
-									if(!Passenger_setStatusFlight(pPasajero, estadoDeVueloAux)){
-										retorno = 0;
-									}
-								}
-								break;
-							case 7:
-								break;
 							}
-						}
+							break;
+						case 2:
+							if(!getString(apellidoAux, "Ingrese el nuevo apellido del pasajero: \n", "Ingrese un apellido valido\n", 2)){
+								if(!Passenger_setApellido(pPasajero, apellidoAux)){
+									retorno = 0;
+								}
+							}
+							break;
+						case 3:
+							if(!utnGetFloat(&precioAux, "Ingrese el nuevo precio del viaje:\n", "Por favor ingrese un valor valido.\n", 0, 1000000, 2)){
+								if(!Passenger_setPrecio(pPasajero, precioAux)){
+									retorno = 0;
+								}
+							}
+							break;
+						case 4:
+							if(!utn_getFlyCode(codigoDeVueloAux, "Ingrese el nuevo codigo de vuelo: \n", "Ingrese un codigo alfanumerico.\n", 2)){
+								if(!Passenger_setCodigoVuelo(pPasajero, codigoDeVueloAux)){
+									retorno = 0;
+									}
+								}
+							break;
+						case 5:
+							if(!utn_getInt(&tipoPasajeroAux, "Ingrese el nuevo tipo de pasajero: \n1)First Class\n2)Executive class\n3)Economy Class\n", "Ingrese una opcion valida.\n", 1, 3, 2)){
+								if(!Passenger_setTipoPasajero(pPasajero, tipoPasajeroAux)){
+									retorno = 0;
+								}
+							}
+							break;
+						case 6:
+							if(!getFlightStatus(estadoDeVueloAux, "Ingrese el estado del vuelo 'En vuelo' 'En Horario' 'Aterrizado' 'Demorado':\n", "Error, debe ser una cadena de caracteres valida respetando minusculas y mayusculas.\n", 2)){
+								if(!Passenger_setStatusFlight(pPasajero, estadoDeVueloAux)){
+									retorno = 0;
+								}
+							}
+							break;
+						case 7:
+							break;
+					}
 				}
+			}
 		}
 		else{
 			retorno = -2;
 		}
-			if(retorno == 0 && !utn_getInt(&respuesta, "Quiere realizar mas cambios?\n1)Si.\n2)No", "Ingrese un numero en el rango.\n", 1, 2, 2)) {
-				if(respuesta == 1){
-					controller_editPassenger(pArrayListPassenger);
-				}
-			}
+	}
+
+	if(retorno == 0 && !utn_getInt(&respuesta, "Quiere realizar mas cambios?\n1)Si.\n2)No", "Ingrese un numero en el rango.\n", 1, 2, 2)) {
+		if(respuesta == 1){
+			controller_editPassenger(pArrayListPassenger);
 		}
+	}
 
     return retorno;
 }
