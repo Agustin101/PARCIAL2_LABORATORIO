@@ -12,8 +12,6 @@ int main(){
     int retorno;
     int respuesta = 0;
 
-
-
     LinkedList* listaPasajeros = ll_newLinkedList();
 
     do{
@@ -48,15 +46,21 @@ int main(){
 					printf("\nPasajero dado de alta con exito.\n");
         		}
         		else{
-        			printf("Hubo un error durante la carga del pasajero\n");
+        			printf("Hubo un error durante la carga del pasajero.\n");
         		}
         	break;
         	case 4:
         		retorno = controller_editPassenger(listaPasajeros);
-        		if(retorno==-1){
-        			printf("El id ingresado no corresponde a ningun pasajero en la lista.\n");
+        		if(retorno == 0){
+					printf("El pasajero fue modificado con exito.\n");
+        		}
+        		else if(retorno==-1){
+        			printf("No se realizaron cambios.\n");
         		}
         		else if (retorno==-2){
+        			printf("El id ingresado no corresponde a ningun pasajero en la lista.\n");
+        		}
+        		else if (retorno==-3){
         			printf("Debe tener al menos un pasajero en la lista para poder modificar.\n");
         		}
         	break;
@@ -86,12 +90,16 @@ int main(){
         	break;
         	case 7:
         		retorno = controller_sortPassenger(listaPasajeros);
-        		if(retorno == -2){
-        			printf("Debe ingresar al menos un pasajero para ordenar la lista.\n");
+        		if(retorno == 0){
+        			printf("La lista fue ordenada con exito.\n");
         		}
         		else if(retorno==-1){
         			printf("Un error durante la seleccion del criterio de ordenamiento.\n");
         		}
+        		else if(retorno == -2){
+        			printf("Debe ingresar al menos un pasajero para ordenar la lista.\n");
+        		}
+
         	break;
         	case 8:
         		if(flagArchivo == 1){
@@ -123,7 +131,7 @@ int main(){
         	break;
         	case 10:
         		if(flagGuardado == 1){
-        			utn_getInt(&respuesta, "Â¿Esta seguro que desea salir?\n1)Si.\n2)No.", "Ingrese un numero entre los especificados.\n", 1, 2, 2);
+        			utn_getInt(&respuesta, "¿Esta seguro que desea salir?\n1)Si.\n2)No.", "Ingrese un numero entre los especificados.\n", 1, 2, 2);
         			if(respuesta == 1){
         				ll_deleteLinkedList(listaPasajeros);
         				printf("\nHasta la proxima!");

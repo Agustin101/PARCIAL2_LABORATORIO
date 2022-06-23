@@ -146,7 +146,7 @@ int ll_add(LinkedList* this, void* pElement){
     return returnAux;
 }
 
-/** \brief Permite realizar el test de la funcion addNode la cual es privada
+/** \brief Retorna un puntero al elemento que se encuentra en el índice especificado.
  *
  * \param this LinkedList* Puntero a la lista
  * \param nodeIndex int Ubicacion del elemento a obtener
@@ -487,4 +487,38 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order){
     return returnAux;
 
 }
+
+
+//int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*),int (*pFunc2)(void* ,void*), int order){
+//    int returnAux =-1;
+//    int estaOrdenado;
+//    int len;
+//    void* auxElement = NULL;
+//    void* auxElement2 = NULL;
+//
+//    if(this != NULL &&( order ==0 ||  order == 1) && pFunc != NULL){
+//    	len = ll_len(this);
+//    	do{
+//    		estaOrdenado = 1;
+//    		len--;
+//    		for(int i =0; i < len; i++){
+//    			auxElement = ll_get(this, i);
+//    			auxElement2= ll_get(this, i+1);
+//    			if((order == 1 && pFunc(auxElement, auxElement2) > 0) || (order == 0 && pFunc(auxElement, auxElement2) <0)){
+//    				ll_set(this,i,auxElement2);
+//    				ll_set(this,i+1,auxElement);
+//    				estaOrdenado = 0;
+//    			}
+//    			else if(pFunc(auxElement, auxElement2) == 0 && ((order == 1 && pFunc2(auxElement, auxElement2) > 0) || (order == 0 && pFunc2(auxElement, auxElement2) <0))){
+//    				ll_set(this,i,auxElement2);
+//    				ll_set(this,i+1,auxElement);
+//    				estaOrdenado = 0;
+//    			}
+//    		}
+//    	}while(estaOrdenado == 0);
+//    	returnAux = 0;
+//    }
+//    return returnAux;
+//
+//}
 

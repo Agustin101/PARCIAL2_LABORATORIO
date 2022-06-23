@@ -72,8 +72,8 @@ int controller_addPassenger(LinkedList* pArrayListPassenger){
 
    if(pArrayListPassenger != NULL && pFile != NULL){
 	   if(getString(bufferName, "Ingrese el nombre del pasajero:\n", "Error, pruebe con un caracter valido\n", 2)== 0 && getString(bufferLastName, "Ingrese el apellido del pasajero:\n", "Error, pruebe con un caracter valido\n", 2)== 0 &&
-		  utnGetFloat(&bufferPrice, "Ingrese el precio del viaje", "Error ingrese un numero valido", 0, 10000000, 2) == 0 && utn_getFlyCode(bufferFlyCode, "Ingrese el codigo de vuelo:\n", "Error solo caracteres alfanumericos", 2) == 0 &&
-		  utn_getInt(&bufferTypePassenger, "Ingrese el tipo de pasajero: \n1)FIRSTCLASS\n2)EXECUTIVECLASS\n3)ECONOMYCLASS\n", "Error ingrese una opcion valida.", 1, 3, 2) == 0 &&
+		  utnGetFloat(&bufferPrice, "Ingrese el precio del viaje:\n", "Error ingrese un numero valido.\n", 0, 10000000, 2) == 0 && utn_getFlyCode(bufferFlyCode, "Ingrese el codigo de vuelo:\n", "Error solo caracteres alfanumericos.\n", 2) == 0 &&
+		  utn_getInt(&bufferTypePassenger, "Ingrese el tipo de pasajero: \n1)FIRSTCLASS\n2)EXECUTIVECLASS\n3)ECONOMYCLASS\n", "Error ingrese una opcion valida.\n", 1, 3, 2) == 0 &&
 		  getFlightStatus(bufferStatusFlight, "Ingrese el estado del vuelo 'En vuelo' 'En Horario' 'Aterrizado' 'Demorado':\n", "Error, debe ser una cadena de caracteres valida respetando minusculas y mayusculas.\n", 2)== 0){
 		  pPasajero = Passenger_new();
 		  bufferId = parser_idsFromText(pFile);
@@ -108,7 +108,7 @@ int controller_addPassenger(LinkedList* pArrayListPassenger){
  *
  */
 int controller_editPassenger(LinkedList* pArrayListPassenger){
-	int retorno = -1;
+	int retorno = -3;
 	int opcion;
 	int idAmodificar;
 	Passenger * pPasajero = NULL;
@@ -125,58 +125,74 @@ int controller_editPassenger(LinkedList* pArrayListPassenger){
 		if(!utn_getInt(&idAmodificar, "Ingrese el id del pasajero que desea modificar:\n", "Ingrese un numero en el rango.\n", 1, 10000, 2) && !findPassengerById(pArrayListPassenger, idAmodificar, &indiceRetornado)){
 				pPasajero = (Passenger*)ll_get(pArrayListPassenger, indiceRetornado);
 				if(pPasajero != NULL){
+					retorno = -1;
 					do{
 						if(utn_getInt(&opcion, "Ingrese el campo que desea modificar:\n1)Nombre.\n2)Apellido.\n3)Precio.\n4)Codigo de vuelo.\n5)Tipo de pasajero\n6)Estado de vuelo.\n7)Volver al menu principal.", "Ingrese un numero en el rango.\n", 1, 7, 2)==0){
 							switch(opcion){
 							case 1:
 								if(!getString(nombreAux, "Ingrese el nuevo nombre del pasajero: \n", "Ingrese un nombre valido", 2)){
 									if(!Passenger_setNombre(pPasajero, nombreAux)){
-										printf("El nombre fue actualizado con exito.\n");
 										retorno = 0;
+										opcion = 7;
 									}
-									else{
-										printf("Hubo un error en el cambio de nombre.\n");
-									}
+								}
+								else{
+									opcion = 7;
 								}
 								break;
 							case 2:
 								if(!getString(apellidoAux, "Ingrese el nuevo apellido del pasajero: \n", "Ingrese un apellido valido\n", 2)){
 									if(!Passenger_setApellido(pPasajero, apellidoAux)){
-										printf("Apellido modificado con exito\n");
 										retorno = 0;
+										opcion = 7;
 									}
+								}
+								else{
+									opcion = 7;
 								}
 								break;
 							case 3:
 								if(!utnGetFloat(&precioAux, "Ingrese el nuevo precio del viaje:\n", "Por favor ingrese un valor valido.", 0, 1000000, 2)){
 									if(!Passenger_setPrecio(pPasajero, precioAux)){
-										printf("Precio actualizado con exito.\n");
 										retorno = 0;
+										opcion = 7;
 									}
+								}
+								else{
+									opcion = 7;
 								}
 								break;
 							case 4:
 								if(!utn_getFlyCode(codigoDeVueloAux, "Ingrese el nuevo codigo de vuelo: \n", "Ingrese un codigo alfanumerico.\n", 2)){
 									if(!Passenger_setCodigoVuelo(pPasajero, codigoDeVueloAux)){
-										printf("Codigo de vuelo actualizado con exito.\n");
 										retorno = 0;
+										opcion = 7;
 									}
+								}
+								else{
+									opcion = 7;
 								}
 								break;
 							case 5:
 								if(!utn_getInt(&tipoPasajeroAux, "Ingrese el nuevo tipo de pasajero: \n1)First Class\n2)Executive class\n3)Economy Class\n", "Ingrese una opcion valida.", 1, 3, 2)){
 									if(!Passenger_setTipoPasajero(pPasajero, tipoPasajeroAux)){
-										printf("Tipo de pasajero actualizado con exito.\n");
 										retorno = 0;
+										opcion = 7;
 									}
+								}
+								else{
+									opcion = 7;
 								}
 								break;
 							case 6:
 								if(!getFlightStatus(estadoDeVueloAux, "Ingrese el estado del vuelo 'En vuelo' 'En Horario' 'Aterrizado' 'Demorado':\n", "Error, debe ser una cadena de caracteres valida respetando minusculas y mayusculas.\n", 2)){
 									if(!Passenger_setStatusFlight(pPasajero, estadoDeVueloAux)){
-										printf("Estado de vuelo actualizado con exito.\n");
 										retorno = 0;
+										opcion = 7;
 									}
+								}
+								else{
+									opcion = 7;
 								}
 								break;
 							case 7:
@@ -185,12 +201,10 @@ int controller_editPassenger(LinkedList* pArrayListPassenger){
 						}
 					}while(opcion != 7);
 				}
-				else{
-					retorno = -1;
-				}
 		}
-	}else{
-		retorno = -2;
+		else{
+			retorno = -2;
+		}
 	}
 
     return retorno;
@@ -287,6 +301,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortById, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 2:
@@ -294,6 +312,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortByName, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 3:
@@ -301,6 +323,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortByLastName, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 4:
@@ -308,6 +334,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortByPrice, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 5:
@@ -315,6 +345,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortByFlyCode, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 6:
@@ -322,6 +356,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortByTypePassenger, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 7:
@@ -329,6 +367,10 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger){
 						printf("Ordenando, por favor espere\n");
 						ll_sort(pArrayListPassenger,Passenger_sortByFlightStatus, order);
 						retorno = 0;
+						opcion = 8;
+					}
+					else{
+						opcion = 8;
 					}
 					break;
 				case 8:
