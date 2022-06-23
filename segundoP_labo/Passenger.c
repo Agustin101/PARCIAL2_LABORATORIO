@@ -513,10 +513,12 @@ int Passenger_sortByName(void* primerElemento, void* segundoElemento){
 	return retorno;
 }
 
-/// @brief Busca una id en la lista de pasajeros
+/// @brief Busca una id en la lista de pasajeros y retorna el indice en el cual
+/// esta ubicado
 ///
 /// @param pArrayListPassenger
 /// @param idBuscado
+/// @param puntero donde guarda el indice.
 /// @return -1 si falla o 0 si sale bien
 int findPassengerById(LinkedList* pArrayListPassenger, int idBuscado, int * indice) {
 	int retorno;

@@ -42,7 +42,7 @@ int ll_len(LinkedList* this){
 }
 
 
-/** \brief  Obtiene un nodo de la lista
+/** \brief  Obtiene un nodo de la lista que se encuentra en el indice especificado
  *
  * \param this LinkedList* Puntero a la lista
  * \param index int Indice del nodo a obtener
@@ -130,7 +130,7 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
 }
 
 
-/** \brief  Agrega un elemento a la lista
+/** \brief  Agrega un elemento al final de la lista
  * \param pList LinkedList* Puntero a la lista
  * \param pElement void* Puntero al elemento a ser agregado
  * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
@@ -194,7 +194,7 @@ int ll_set(LinkedList *this, int index, void *pElement) {
 }
 
 
-/** \brief Elimina un elemento de la lista
+/** \brief Elimina un elemento de la lista en el indice especificado
  *
  * \param this LinkedList* Puntero a la lista
  * \param nodeIndex int Ubicacion del elemento a eliminar
@@ -213,7 +213,6 @@ int ll_remove(LinkedList* this,int index){
 		if(pNodeAux != NULL){
 			if(index == 0){
 				this->pFirstNode = pNodeAux->pNextNode;
-
 			}
 			else{
 				pNodeAux2 = getNode(this,index-1);
@@ -274,7 +273,7 @@ int ll_deleteLinkedList(LinkedList* this){
     return returnAux;
 }
 
-/** \brief Busca el indice de la primer ocurrencia del elemento pasado como parametro
+/** \brief Retorna el índice de la primera aparición de un elemento (element) en la LinkedList.
  *
  * \param this LinkedList* Puntero a la lista
  * \param pElement void* Puntero al elemento
@@ -320,7 +319,7 @@ int ll_isEmpty(LinkedList* this){
     return returnAux;
 }
 
-/** \brief Inserta un nuevo elemento en la lista en la posicion indicada
+/** \brief Desplaza los elementos e inserta en la posición indicada.
  *
  * \param this LinkedList* Puntero a la lista
  * \param nodeIndex int Ubicacion donde se agregara el nuevo elemento
@@ -339,7 +338,7 @@ int ll_push(LinkedList* this, int index, void* pElement){
 }
 
 
-/** \brief Elimina el elemento de la posicion indicada y retorna su puntero
+/** \brief Retorna un puntero al elemento que se encuentra en el índice especificado y luego lo elimina de la lista.
  *
  * \param this LinkedList* Puntero a la lista
  * \param nodeIndex int Ubicacion del elemento eliminar
@@ -488,7 +487,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order){
 
 }
 
-
+/// Ordenamiento de lista por doble criterio.
 //int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*),int (*pFunc2)(void* ,void*), int order){
 //    int returnAux =-1;
 //    int estaOrdenado;

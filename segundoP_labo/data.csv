@@ -969,6 +969,7 @@ id,name,lastname,price,flycode,typePassenger,statusFlight
 968,Bennett,Boldt,715321.00,SV2534D,FirstClass,Demorado
 969,Pauly,Lugg,685747.00,NF5337C,FirstClass,Demorado
 970,Lewie,Skones,885886.00,LE3381B,ExecutiveClass,Aterrizado
+971,Yuma,Whyte,281849.00,HV0645R,EconomyClass,En vuelo
 972,Tremain,Hamstead,318144.00,LP6111X,ExecutiveClass,Aterrizado
 973,Aristotle,Sellek,108753.00,DE5898T,EconomyClass,En vuelo
 974,Camilla,Risbridger,653693.00,CW4609A,ExecutiveClass,Aterrizado
@@ -997,6 +998,4 @@ id,name,lastname,price,flycode,typePassenger,statusFlight
 997,Leeland,Addlestone,260381.00,AT7590V,ExecutiveClass,Demorado
 998,Taddeo,Waker,844946.00,HZ9015Z,ExecutiveClass,Aterrizado
 999,Nerti,Sheircliffe,450887.00,FT6780R,ExecutiveClass,En vuelo
-1001,Agustin,Barberis,125000.00,asd456a,FirstClass,En vuelo
-1002,Sol,Carpinetti,130000.00,asd464a,FirstClass,En Horario
-1003,Esteban,Bazzo,250000.00,asd789a,FirstClass,En vuelo
+1000,Fallon,Wem,376394.00,AQ4311K,FirstClass,Demorado
