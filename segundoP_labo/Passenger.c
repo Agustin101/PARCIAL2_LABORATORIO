@@ -542,16 +542,101 @@ int findPassengerById(LinkedList* pArrayListPassenger, int idBuscado, int * indi
 	return retorno;
 }
 
+int Passenger_clasePrimera(void* Elemento){
+	int retorno=0;
+	int clasePasajero;
+	Passenger * pPasajero;
+
+	pPasajero=(Passenger*)Elemento;
+	if(pPasajero != NULL){
+	Passenger_getTipoPasajero(pPasajero, &clasePasajero);
+		if(clasePasajero==FIRSTCLASS){
+			retorno=1;
+		}
+	}
+	return retorno;
+}
+
+int Passenger_claseEjecutiva(void* Elemento){
+	int retorno=0;
+	int clasePasajero;
+	Passenger * pPasajero;
+
+	pPasajero=(Passenger*)Elemento;
+	if(pPasajero != NULL){
+		Passenger_getTipoPasajero(pPasajero, &clasePasajero);
+		if(clasePasajero==EXECUTIVECLASS){
+			retorno=1;
+		}
+	}
+
+	return retorno;
+}
+
+int Passenger_claseEconomica(void* Elemento){
+	int retorno=0;
+	int clasePasajero;
+	Passenger * pPasajero;
+
+	pPasajero=(Passenger*)Elemento;
+
+	if(pPasajero != NULL){
+		Passenger_getTipoPasajero(pPasajero, &clasePasajero);
+		if(clasePasajero==ECONOMYCLASS){
+			retorno=1;
+		}
+	}
+	return retorno;
+}
+
+void* Passenger_CalcularMillas(void* pElemento){
+	Passenger * pPasajero =NULL ;
+
+	float bufferPrice;
+	int bufferTypePassenger;
+	float millas = 0;
+	pElemento =
+	pPasajero = (Passenger*) pElemento;
+	if(pPasajero!=NULL){
+		Passenger_getPrecio(pPasajero, &bufferPrice);
+		Passenger_getTipoPasajero(pPasajero, &bufferTypePassenger);
+
+		if(bufferPrice>0){
+			millas = bufferPrice / 100;
+			if(bufferTypePassenger == FIRSTCLASS){
+				millas = millas * 2;
+			}
+			else if(bufferTypePassenger == EXECUTIVECLASS){
+				millas = millas * 3;
+			}
+		}
+		Passenger_setMillas(pPasajero, millas);
+
+	}
+	return pPasajero;
+}
 
 
 
+int Passenger_setMillas(Passenger* this,float millas){
+	int retorno = -1;
+
+	if(this != NULL && millas > 0){
+			this->millas = millas;
+			retorno = 0;
+	}
+	return retorno;
+}
 
 
-
-
-
-
-
+int Passenger_getMillas(Passenger* this,float * millas){
+	int retorno = -1;
+	if(this != NULL && millas != NULL){
+		retorno = 0;
+		*millas = this->millas;
+	}
+	return retorno;
+}
 
 
 

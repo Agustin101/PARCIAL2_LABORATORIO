@@ -15,7 +15,7 @@ int main(){
     LinkedList* listaPasajeros = ll_newLinkedList();
 
     do{
-    	if(!utn_getInt(&option, "1)Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).\n2)Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).\n3)Alta de pasajero.\n4)Modificar datos de pasajero.\n5)Baja de pasajero.\n6)Listar pasajeros.\n7)Ordenar pasajeros.\n8)Guardar los datos de los pasajeros en el archivo data.csv (modo texto).\n9)Guardar los datos de los pasajeros en el archivo data.csv (modo binario).\n10)Salir.\n", "Error ingrese una opcion valida.\n", 1, 10, 3)){
+    	if(!utn_getInt(&option, "1)Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).\n2)Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).\n3)Alta de pasajero.\n4)Modificar datos de pasajero.\n5)Baja de pasajero.\n6)Listar pasajeros.\n7)Ordenar pasajeros.\n8)Guardar los datos de los pasajeros en el archivo data.csv (modo texto).\n9)Guardar los datos de los pasajeros en el archivo data.csv (modo binario).\n10)Salir.\n11)Informes.\n", "Error ingrese una opcion valida.\n", 1, 11, 3)){
         switch(option){
            case 1:
             	if(flagArchivo == 0 && !controller_loadFromText("data.csv",listaPasajeros)){
@@ -140,6 +140,9 @@ int main(){
         		else{
         			printf("No puede salir sin guardar.\n");
         		}
+        	break;
+        	case 11:
+        		controller_menuInformes(listaPasajeros);
         	break;
         	}
     	}

@@ -29,6 +29,7 @@ typedef struct
 	char codigoVuelo[10];
 	int tipoPasajero;
 	char statusFlight[50];
+	float millas;
 }Passenger;
 
 Passenger* Passenger_new();
@@ -68,5 +69,16 @@ int Passenger_sortByName(void* primerElemento, void* segundoElemento);
 
 
 int findPassengerById(LinkedList* pArrayListPassenger, int idBuscado, int * indice);
+
+
+
+
+int Passenger_claseEconomica(void* Elemento);
+int Passenger_claseEjecutiva(void* Elemento);
+int Passenger_clasePrimera(void* Elemento);
+
+int Passenger_getMillas(Passenger* this,float * millas);
+int Passenger_setMillas(Passenger* this,float millas);
+void* Passenger_CalcularMillas(void* pElemento);
 
 #endif /* PASSENGER_H_ */

@@ -422,3 +422,108 @@ int controller_saveIdAsText(char *path, int ultimoId) {
 	fclose(pFile);
 	return retorno;
 }
+
+
+int controller_menuInformes(LinkedList *pArrayListPassenger) {
+	int retorno = -1;
+	int option;
+	int option2;
+	LinkedList* newList;
+	LinkedList* listaMillas;
+	int retornoCriterio;
+
+	if(!utn_getInt(&option, "1)Pasajeros por clase.\n2)Generar archivo filtrado por clase.\n3)Calcular millas acumuladas:.\n", "Error ingrese una opcion valida.\n", 1, 3, 2)){
+
+		switch(option){
+		case 1:
+			if(!utn_getInt(&option2, "1)Clase primera.\n2)Clase ejecutiva.\n3)Clase economica.\n", "Error ingrese una opcion valida.\n", 1, 3, 2)){
+				switch(option2){
+				case 1 :
+					retornoCriterio = ll_count(pArrayListPassenger, Passenger_clasePrimera);
+					printf("Son de primera clase : %d \n",retornoCriterio);
+					break;
+				case 2 :
+					retornoCriterio = ll_count(pArrayListPassenger, Passenger_claseEjecutiva);
+					printf("Son de Clase ejecutiva : %d \n",retornoCriterio);
+					break;
+				case 3 :
+					retornoCriterio = ll_count(pArrayListPassenger, Passenger_claseEconomica);
+					printf("Son de Clase economica: %d \n",retornoCriterio);
+					break;
+				}
+			}
+			break;
+		case 2:
+			if(!utn_getInt(&option2, "1)Clase primera.\n2)Clase ejecutiva.\n3)Clase economica.\n", "Error ingrese una opcion valida.\n", 1, 3, 2)){
+				switch(option2){
+				case 1 :
+					newList = ll_filter(pArrayListPassenger,Passenger_clasePrimera);
+					controller_saveAsText(ARCHIVO_TXTFILTRO , newList);
+					break;
+				case 2 :
+					newList = ll_filter(pArrayListPassenger,Passenger_claseEjecutiva);
+					controller_saveAsText(ARCHIVO_TXTFILTRO , newList);
+					break;
+				case 3 :
+					newList = ll_filter(pArrayListPassenger,Passenger_claseEconomica);
+					controller_saveAsText(ARCHIVO_TXTFILTRO , newList);
+					break;
+				}
+			}
+
+
+
+			break;
+		case 3:
+
+			listaMillas = ll_map(pArrayListPassenger, Passenger_CalcularMillas);
+			controller_ListPassengerMillas(listaMillas);
+
+			break;
+		}
+
+	}
+
+	return retorno;
+}
+
+
+int controller_ListPassengerMillas(LinkedList* pArrayListPassenger){
+	Passenger * pPasajero = NULL;
+	int retorno = -2;
+	int cantidadElementos;
+	int  bufferId;
+	char bufferName[50];
+	char bufferLastName[50];
+	float bufferPrice;
+	char bufferFlyCode[10];
+	int bufferTypePassenger;
+	char bufferStatusFlight[50];
+	char bufferTypePassengerStr[50];
+	float millas;
+
+	if(pArrayListPassenger != NULL && !ll_isEmpty(pArrayListPassenger)){
+		printf("ID   NOMBRE          APELLIDO        PRECIO     FLYCODE T.PASAJERO      FLIGHTSTATUS    MILLAS\n");
+		cantidadElementos = ll_len(pArrayListPassenger);
+		for(int i =0; i < cantidadElementos; i++){
+			pPasajero = (Passenger*) ll_get(pArrayListPassenger, i);
+			if(pPasajero != NULL && !Passenger_getApellido(pPasajero, bufferLastName) && !Passenger_getId(pPasajero, &bufferId)
+					&& !Passenger_getNombre(pPasajero, bufferName) && !Passenger_getPrecio(pPasajero, &bufferPrice)
+					&& !Passenger_getTipoPasajero(pPasajero, &bufferTypePassenger) && !Passenger_getCodigoVuelo(pPasajero, bufferFlyCode)
+					&& !Passenger_getStatusFlight(pPasajero, bufferStatusFlight) && !Passenger_tipoPasajeroTxt(pPasajero,bufferTypePassenger, bufferTypePassengerStr) && !Passenger_getMillas(pPasajero, &millas)){
+				printf("%-4d %-15s %-15s $%-9.2f %-7s %-15s %-15s %.2f\n",bufferId,bufferName, bufferLastName,bufferPrice,bufferFlyCode,bufferTypePassengerStr,bufferStatusFlight, millas);
+				retorno = 0;
+			}
+			else{
+				retorno = -1;
+			}
+		}
+	}
+    return retorno;
+}
+
+
+
+
+
+

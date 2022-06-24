@@ -487,37 +487,95 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order){
 
 }
 
-/// Ordenamiento de lista por doble criterio.
-//int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*),int (*pFunc2)(void* ,void*), int order){
-//    int returnAux =-1;
-//    int estaOrdenado;
-//    int len;
-//    void* auxElement = NULL;
-//    void* auxElement2 = NULL;
-//
-//    if(this != NULL &&( order ==0 ||  order == 1) && pFunc != NULL){
-//    	len = ll_len(this);
-//    	do{
-//    		estaOrdenado = 1;
-//    		len--;
-//    		for(int i =0; i < len; i++){
-//    			auxElement = ll_get(this, i);
-//    			auxElement2= ll_get(this, i+1);
-//    			if((order == 1 && pFunc(auxElement, auxElement2) > 0) || (order == 0 && pFunc(auxElement, auxElement2) <0)){
-//    				ll_set(this,i,auxElement2);
-//    				ll_set(this,i+1,auxElement);
-//    				estaOrdenado = 0;
-//    			}
-//    			else if(pFunc(auxElement, auxElement2) == 0 && ((order == 1 && pFunc2(auxElement, auxElement2) > 0) || (order == 0 && pFunc2(auxElement, auxElement2) <0))){
-//    				ll_set(this,i,auxElement2);
-//    				ll_set(this,i+1,auxElement);
-//    				estaOrdenado = 0;
-//    			}
-//    		}
-//    	}while(estaOrdenado == 0);
-//    	returnAux = 0;
-//    }
-//    return returnAux;
-//
-//}
+
+
+
+/*Prototipo de la función: int ll_count(LinkedList* this, int (*fn)(void* element))
+La función “ll_count” recibirá una lista y una función “fn”. Se deberá iterar todos los elementos
+de la lista y pasárselos a la funcion “fn”. La función “fn” devolverá la cantidad que debe
+contarse. La función “ll_count” almacenará un acumulador al cual sumará el valor de retorno
+de “fn” en cada iteración. Al finalizar las iteraciones, la función “ll_count” devolverá el valor
+acumulado.
+*/
+int ll_count(LinkedList* this, int (*fn)(void* element)){
+	int retornoCriterio;
+	int retorno=0;
+	int elementos;
+	void* auxElement;
+
+	if(this!=NULL&&*fn!=NULL){
+		elementos=ll_len(this);
+
+		for(int i=0;i<elementos;i++){
+
+			auxElement=ll_get(this,i);
+			retornoCriterio=fn(auxElement);
+			if(retornoCriterio>0){
+				retorno+=retornoCriterio;
+			}
+
+		}
+	}
+	return retorno;
+}
+
+/*
+ * Prototipo de la función: LinkedList* ll_filter(LinkedList* this, void (*fn)(void* element))
+La función “ll_filter” recibirá una lista y una función “fn”. Se deberá iterar todos los elementos
+de la lista y pasárselos a la función “fn”. La función “fn” analizará el elemento recibido e
+informará si cumple o no con el criterio establecido. Al finalizar la iteración, la nueva lista
+estará conformada sólo por los elementos que corresponden.
+ */
+LinkedList* ll_filter(LinkedList * this, int (*fn)(void * element)) {
+    LinkedList * newList;
+    void *pElement;
+    int elementos;
+    int retornoCriterio;
+
+    if (this != NULL) {
+        newList = ll_newLinkedList();
+        elementos = ll_len(this);
+        if (newList != NULL) {
+            for (int i = 0; i < elementos; i++) {
+
+                pElement = ll_get(this, i);
+                if(pElement!=NULL){
+                	retornoCriterio = fn(pElement);
+                    if (retornoCriterio == 1) {
+                        ll_add(newList, pElement);
+                    }
+                }
+            }
+        }
+    }
+    return newList;
+}
+
+
+/*Detalle de la función “ll_map()”
+Prototipo de la función: LinkedList* ll_map(LinkedList* this, void (*fn)(void* element))
+La función “ll_map” recibirá una lista y una función “fn”. Se deberá iterar todos los elementos
+de la lista y pasárselos a la función “fn”. La función “fn” podrá realizar un cálculo con el
+elemento recibido y modificar alguno de sus campos si es necesario. Al finalizar la iteración,
+los elementos de la lista quedarán modificados.
+*/
+
+LinkedList* ll_map(LinkedList* this, void* (*fn)(void * element)){
+    LinkedList* auxLinkedList;
+    int elementos;
+    void* pElement;
+    void* retornoFuncion;
+    if(this!=NULL){
+        auxLinkedList=ll_newLinkedList();
+        elementos=ll_len(this);
+        for(int i=0;i<elementos;i++){
+            pElement=ll_get(this, i);
+            retornoFuncion=fn(pElement);
+            if(retornoFuncion!=NULL){
+                ll_add(auxLinkedList, retornoFuncion);
+            }
+        }
+    }
+    return auxLinkedList;
+}
 
